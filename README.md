@@ -28,6 +28,10 @@ You will also need a Telegram account and a Google account.
 
 Install all dependencies and clone this repository to your Raspberry Pi.
 
+```
+git clone https://github.com/SenseiBonsai/BotWithCap
+```
+
 If you now want to run BotWithCap, you first of all will need an Telegram Bot API access-token. In order to get an access-token, you have to talk to the [BotFather](https://core.telegram.org/bots/#6-botfather).
 If you have got a token, insert it into the file 'config_example.py'.
 
@@ -118,7 +122,7 @@ Therefore run:
 sudo nano /etc/rc.local
 ```
 
-And add the following line (change filepath to your filepath):
+And add the following line (change filepath to your filepath) somewhere before the 'exit 0'-line:
 
 ```
 python /home/pi/BotWithCap/BotWithCap/main.py &
