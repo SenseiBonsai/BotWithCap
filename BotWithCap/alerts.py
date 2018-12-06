@@ -1,5 +1,7 @@
 import os
 
+alerts_filepath = str(os.path.abspath(os.path.dirname(__file__))) + '/alerts.txt'
+
 def alerts(command):
 	# list all alerts
 	if command[0] == 'list':
@@ -16,7 +18,7 @@ def alerts(command):
 def add_alert(command):
 	# open alert-file
 	try:
-		f = open('alerts.txt', 'a')
+		f = open(alerts_filepath, 'a')
 	except:
 		# debugging-message
 		#print('add_alert() Could not open the file alerts.txt')
@@ -36,7 +38,7 @@ def add_alert(command):
 
 def get_alerts():
 	try:
-		with open("alerts.txt", "r") as f:
+		with open(alerts_filepath, "r") as f:
 			alerts = []
 			for line in f:
 				line = line.rstrip()
@@ -67,8 +69,8 @@ def check_alert(command):
 	return None
 
 def reset_alerts(new_alerts):
-	if os.path.exists('alerts.txt'):
-		os.remove('alerts.txt')
+	if os.path.exists(alerts_filepath):
+		os.remove(alerts_filepath)
 
 	for alert in new_alerts:
 		alert = alert.split(' ')
@@ -87,7 +89,9 @@ def show_alerts():
 		while len(alerts) > 0:
 			message = message + str(counter) + '. ' + alerts.pop(0) + '\n'
 			counter += 1
+		message = message + 'Use /alerts remove and one of the numbers above in order to delete the corresponding alert'
 		return message
+	return 'There are no alerts'
 
 
 def remove_alert(alert_number):

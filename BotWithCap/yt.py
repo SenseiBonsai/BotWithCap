@@ -106,7 +106,7 @@ def alert_milestone(subcount_milestone, user, milestone):
 
 	milestone = int(milestone)
 	if subs > milestone:
-		next_milestone = milestone + subcount_milestone
+		next_milestone = subs - (subs % subcount_milestone) + subcount_milestone
 		new_alert = ['yt', 'alert', 'milestone', str(subcount_milestone), user, str(next_milestone)]
 		new_alert.append(user + " has now {:,d}".format(milestone) + " subscribers")
 		return new_alert

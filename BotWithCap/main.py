@@ -15,6 +15,7 @@ from yt import yt
 running = True
 mute_alerts = False
 chat_id = None
+alerts_filepath = str(os.path.abspath(os.path.dirname(__file__))) + '/alerts.txt'
 
 def handle(msg):
 	# get the message and the id of the chat it was sent in
@@ -151,7 +152,7 @@ while running:
 	if chat_id != None:
 		alert_list = get_alerts()
 		
-		if alert_list != None and os.path.exists('alerts.txt'):
+		if alert_list != None and os.path.exists(alerts_filepath):
 			new_alerts = []
 			for alert in alert_list:
 				message = check_alert(alert)
