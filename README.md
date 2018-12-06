@@ -128,8 +128,8 @@ python /home/pi/BotWithCap/BotWithCap/main.py &
 
 * **Lukas** - *Initial work* - [SenseiBonsai](https://github.com/SenseiBonsai)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/SenseiBonsai/BotWithCap/graphs/contributors) who participated in this project.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
