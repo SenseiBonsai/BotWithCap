@@ -60,11 +60,18 @@ def check_alert(command):
 	if command_array[0] == 'yt':
 		if command_array[2] == 'compare':
 			from yt import alert_compare
-			return alert_compare(command_array[3], command_array[4])
+			message = alert_compare(command_array[3], command_array[4])
 
-		if command_array[2] == 'milestone':
+		elif command_array[2] == 'milestone':
 			from yt import alert_milestone
-			return alert_milestone(command_array[3], command_array[4], command_array[5])
+			message = alert_milestone(command_array[3], command_array[4], command_array[5])
+
+		
+		if type(message) == str and message != None:
+			if message.startswith("Couldn't get the subscriber-count for the channel "):
+				return None
+		
+		return message
 
 	return None
 
