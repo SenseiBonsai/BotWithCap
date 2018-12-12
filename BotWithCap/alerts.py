@@ -66,7 +66,8 @@ def check_alert(command):
 			from yt import alert_milestone
 			message = alert_milestone(command_array[3], command_array[4], command_array[5])
 
-		
+		# check if the message is an error-message
+		# don't send error messages for alerts
 		if type(message) == str and message != None:
 			if message.startswith("Couldn't get the subscriber-count for the channel "):
 				return None
