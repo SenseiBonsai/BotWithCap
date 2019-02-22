@@ -66,6 +66,10 @@ def check_alert(command):
 			from yt import alert_milestone
 			message = alert_milestone(command_array[3], command_array[4], command_array[5])
 
+		elif command_array[2] == 'subgap':
+			from yt import alert_subgap
+			message = alert_subgap(command_array[3], command_array[4], command_array[5])
+
 		# check if the message is an error-message
 		# don't send error messages for alerts
 		if type(message) == str and message != None:

@@ -41,10 +41,10 @@ def compare(user_a, user_b):
 
 	if subs_a >= subs_b:
 		subs_difference = subs_a - subs_b
-		return user_a + " has " + "{:,d}".format(subs_a) + " subscribers.\n" + user_b + " has " + "{:,d}".format(subs_b) + " subscribers.\n" + user_a + " has " + "{:,d}".format(subs_difference) + " more subscribers."
+		return user_a + " has " + "{:,d}".format(subs_a) + " subscribers.\n" + user_b + " has " + "{:,d}".format(subs_b) + " subscribers.\n" + user_a + " is " + "{:,d}".format(subs_difference) + " subscribers ahead."
 	else:
 		subs_difference = subs_b - subs_a
-		return user_b + " has " + "{:,d}".format(subs_b) + " subscribers.\n" + user_a + " has " + "{:,d}".format(subs_a) + " subscribers.\n" + user_b + " has " + "{:,d}".format(subs_difference) + " more subscribers."
+		return user_b + " has " + "{:,d}".format(subs_b) + " subscribers.\n" + user_a + " has " + "{:,d}".format(subs_a) + " subscribers.\n" + user_b + " is " + "{:,d}".format(subs_difference) + " subscribers ahead."
 
 # gets the subscriber-count of one YouTube-channel
 def get_subs(name):
@@ -79,6 +79,22 @@ def alert(command):
 		command.append("yt")
 		add_alert(command)
 		return ("I will alert you, when " + user + " passes {:,d}".format(int(milestone)) + " subscribers")
+
+	# alerts you when the subgap between two channels falls under a value
+	if len(command) == 5 and command[1] == 'subgap':
+		user_a = command[2]
+		user_b = command[3]
+		subgap = command[4]
+		subs_a = get_subs(user_a)
+		subs_b = get_subs(user_b)
+		if (subs_a == -1):
+			return "Couldn't get the subriber-count for the channel " + user_a
+		if (subs_b == -1):
+			return "Couldn't get the subriber-count for the channel " + user_b
+		command.append('yt')
+		add_alert(command)
+		return ("I will alert you, when the subgap between " + user_a + " and " + user_b + " falls below " + subgap)
+
 	return "Unknown command"
 
 
@@ -111,3 +127,20 @@ def alert_milestone(subcount_milestone, user, milestone):
 		new_alert.append(user + " has now {:,d}".format(milestone) + " subscribers")
 		return new_alert
 
+
+def alert_subgap(user_a, user_b, subgap):
+	subs_a = get_subs(user_a)
+	subs_b = get_subs(user_b)
+
+	if subs_a == -1:
+		return "Couldn't get the subscriber-count for the channel " + user_a
+	if subs_b == -1:
+		return "Couldn't get the subscriber-count for the channel " + user_b
+
+	if subs_a >= subs_b:
+		subs_difference = subs_a - subs_b
+	else:
+		subs_difference = subs_b - subs_a
+
+	if subs_difference < int(subgap):
+		return "The subgap between " + user_a + " and " + user_b + " fell below " + subgap + ". It's currently at {}".format(subs_difference)

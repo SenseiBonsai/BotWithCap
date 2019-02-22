@@ -1,4 +1,11 @@
+#####################################
+# BotWithCap						#
+# Version 0.2						#
+# SenseiBonsai@nerdsmitmuetzen.de 	#
+#####################################
+
 import os
+import subprocess
 import time
 import datetime
 from random import randint
@@ -11,6 +18,8 @@ from config import *
 from alerts import *
 from pi import pi
 from yt import yt
+
+version = '0.2'
 
 running = True
 shutdown = False
@@ -64,11 +73,13 @@ def  handle_command(command):
 		# system-commands
 		if command == 'reboot':
 			send_message("I'm going to reboot the system")
-			global reboot = True
+			global reboot
+			reboot = True
 
 		elif command == 'shutdown':
 			send_message("I'm going to shutdown the system")
-			global shutdown = True
+			global shutdown
+			shutdown = True
 		
 		else:
 			return pi(command_array[1])
@@ -86,16 +97,23 @@ def  handle_command(command):
 
 
 def handle_simple_command(command):
-	global mute_alerts
 	# help
 	if command == '/help':
-		return 'Here are some commands you can use:\n/pi_help - monitor your pi\n/yt_help - monitor your favourite YouTube-channels\n/alerts_help - monitor the alerts you set\n\n/ping - simple connection-test\n/coin - throws a coin\n/dice [numberDice] [numberSides] - throws any number of dice with any number of sides and returns their total\n/end - shuts the bot down' 
+		return 'Here are some commands you can use:\n/pi_help - monitor your pi\n/yt_help - monitor your favourite YouTube-channels\n/alerts_help - monitor the alerts you set\n\n/version - returns the bots current version\n/update - performs an update by pulling from github. You will need to restart the bot afterwards\n\n/ping - simple connection-test\n/coin - throws a coin\n/dice [numberDice] [numberSides] - throws any number of dice with any number of sides and returns their total\n/end - shuts the bot down' 
 	if command == '/pi_help':
 		return 'Here are some commands you can use in order to monitor your RaspberryPi:\n/pi cpu - shows the CPU-usage\n/pi ram - shows the memory-usage\n/pi temperature - shows the temperature\n/pi shutdown - shuts your pi down!\n/pi reboot - reboots your pi'
 	if command == '/yt_help':
 		return 'Here are some commands you can use in order to monitor your favourite YouTube-channels:\n/yt [channelName] - shows you the subscriber-counts of a YouTube-channel\n/yt compare [channelA] [channelB] - compares the subscriber-counts of two channels with eachother\n/yt alert compare [channelA] [channelB] - sets up an alert, that messages you, when channelA gets more subscribers than channelB\n/yt king - compares the subscriber-counts of PewDiePie and T-Series\n'
 	if command == '/alerts_help':
 		return "Here are some commands you can use in order to monitor the alers you set:\n/alerts or /alerts list - lists you all alerts you set \n/alerts remove [alertNumber] - removes the corresponding alert in the alerts-list\n/mute - you won't get any alert-messages untile you unmute them\n/unmute - you will get alert-messages again"
+
+	# version
+	if command == '/version':
+		return 'Current version: V' + version
+	# updates the code via 'git pull'
+	if command == '/update':
+		proc = subprocess.Popen('git pull', shell='true', stdout=subprocess.PIPE)
+		return proc.stdout.read().decode() + 'You need to restart the bot to make updates work'
 
 	# end program
 	if command == '/end':
@@ -130,6 +148,7 @@ def handle_simple_command(command):
 
 	# mute or unmute alert-messages
 	elif command == '/mute':
+		global mute_alerts
 		mute_alerts = True
 		return "Alerts are muted. You won't get any alert-messages until you use them by sending the command /unmute"
 	elif command == '/unmute':
