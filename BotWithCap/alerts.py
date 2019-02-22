@@ -47,10 +47,11 @@ def get_alerts():
 		return alerts
 	except:
 		# debugging-message
-		print('get_alerts()	Could not open the file alerts.txt')
+		#print('get_alerts()	Could not open the file alerts.txt')
 		return None
 
-	# print numer of found alerts for debugging
+	# debugging message
+	# print number of found alerts
 	#print('Found {}'.format(len(alerts)) + ' alerts')
 	return 
 
