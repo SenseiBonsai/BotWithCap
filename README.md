@@ -80,10 +80,14 @@ And the bot should send you a message via Telegram saying "pong"
 
 #### Basic
 * **/help** - lists most of the commands
+
+* **/version** - returns the bots current version
+* **/update** - performs an update by pulling from github. You will need to restart the bot afterwards
+* **/end** - shuts the bot down
+
 * **/ping** - pong (a simple connection test)
 * **/coin** - throws a coin
 * **/dice *numberDice* *numberSides*** - throws any number of dice with any number of sides and returns their total
-* **/end** - shuts the bot down
 
 #### Pi
 * **/pi_help** - lists most of the commands
@@ -98,7 +102,8 @@ And the bot should send you a message via Telegram saying "pong"
 * **/yt compare *channelA* *channelB*** - compares the subscriber-counts of two channels with eachother
 * **/yt alert compare *channelA* *channelB*** - sets up an alert, that messages you, when channelA gets more subscribers than channelB
 * **/yt king** - compares the subscriber-counts of PewDiePie and T-Series
-* **/yt alert milestone *milestone* *channel*** - sets up an alert, that **repeatedly** messages you, when a channel passes a milestone (check out the examples) 
+* **/yt alert milestone *milestone* *channel*** - sets up an alert, that **repeatedly** messages you, when a channel passes a milestone (check out the examples)
+* **/yt alert subgap *channelA* *channelB* *value*** - sets up an alert, that messages you, when the subgap between channelA and channelB falls below the value
 
 #### Alerts
 * **/alerts** - lists you all alerts you set
