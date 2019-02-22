@@ -13,6 +13,8 @@ from pi import pi
 from yt import yt
 
 running = True
+shutdown = False
+reboot = False
 mute_alerts = False
 chat_id = None
 alerts_filepath = str(os.path.abspath(os.path.dirname(__file__))) + '/alerts.txt'
@@ -59,7 +61,17 @@ def  handle_command(command):
 
 	# react to various pi-related commands, starting with '/pi'
 	elif command_array[0] == '/pi':
-		return pi(command_array[1])
+		# system-commands
+		if command == 'reboot':
+			send_message("I'm going to reboot the system")
+			global reboot = True
+
+		elif command == 'shutdown':
+			send_message("I'm going to shutdown the system")
+			global shutdown = True
+		
+		else:
+			return pi(command_array[1])
 
 	# react to YouTube-related commands
 	elif command_array[0] == '/yt':
@@ -172,5 +184,11 @@ while running:
 
 			reset_alerts(new_alerts)
 			del new_alerts[:]
+
+	if reboot == True:
+		os.system('sudo reboot')
+
+	if shutdown == True:
+		os.system('sudo shutdown')
 
 	time.sleep(10)

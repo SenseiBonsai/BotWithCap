@@ -6,16 +6,6 @@ import psutil
 from datetime import timedelta
 
 def pi(command):
-    # system-commands
-    if command == 'reboot':
-        message = "I'm going to reboot the system"
-        os.system('sudo reboot')
-
-    if command == 'shutdown':
-        message = "I'm going to shutdown the system"
-        os.system('sudo shutdown')
-
-
     # status-request-commands
     if  command == 'cpu':
         cpu_pct = psutil.cpu_percent(interval=1, percpu=False)
